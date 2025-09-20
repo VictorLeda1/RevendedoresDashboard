@@ -1,22 +1,12 @@
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        Revendas
-      </a>
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
 
     <div id="mainNavbar" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item" href="/dashboard/">Dashboard</a>
         {% if request.user and request.user.is_authenticated and request.user.is_superuser %}
           <a class="navbar-item" href="/signup/">Cadastro</a>
+          <a class="navbar-item" href="/vendas/nova/">Vendas</a>
         {% endif %}
       </div>
 
