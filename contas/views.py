@@ -6,6 +6,8 @@ from urllib.parse import quote
 from .forms import LoginForm, SignupForm
 from .decorators import login_required_jwt
 from .utils_jwt import generate_jwt
+from vendas.utils import vendas_do_usuario
+from django.db.models import Sum
 
 COOKIE_OPTS = {
     'httponly': True,
@@ -59,4 +61,17 @@ def signup_view(request):
 
 @login_required_jwt
 def dashboard_view(request):
-    return render(request, 'dashboard.html', {'user': request.user})
+    vendas = vendas_do_usuario(request.user)
+    # Métricas para os cards
+    total_vendas = vendas.count()
+    aggregated = vendas.aggregate(total=Sum('valor'))
+    valor_total = aggregated.get('total') or 0
+    ticket_medio = (valor_total / total_vendas) if total_vendas else 0
+
+    return render(request, 'dashboard.html', {
+        'user': request.user,
+        'vendas': vendas,
+        'total_vendas': total_vendas,
+        'valor_total': valor_total,
+        'ticket_medio': ticket_medio,
+    })

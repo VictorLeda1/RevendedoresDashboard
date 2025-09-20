@@ -6,8 +6,7 @@ from .managers import ResellerUserManager
 class ResellerUser(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField('nome completo', max_length=150, blank=True)
     email = models.EmailField('e-mail', unique=True, null=True, blank=True)
-    phone = models.CharField('telefone', max_length=20,
-                             unique=True, null=True, blank=True)
+    phone = models.CharField('telefone', max_length=20, unique=True, null=True, blank=True)
     cupom_reseller = models.CharField('cupom revendedor', max_length=10, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

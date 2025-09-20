@@ -1,5 +1,96 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1 class="title">Olá, {{ user.full_name|default:user.email|default:user.phone }}</h1>
-<p>Bem-vindo ao painel do revendedor.</p>
+<div class="m-5">
+    <h1 class="title">Olá, {{ user.full_name|default:user.email|default:user.phone }}</h1>
+    <p class="subtitle">Bem-vindo ao painel do revendedor.</p>
+</div>
+<!-- Cards de métricas -->
+<div class="columns is-variable is-4 mb-5">
+  <div class="column is-12-mobile is-4-tablet is-4-desktop">
+    <div class="card has-background-success has-text-white">
+      <div class="card-content">
+        <p class="heading has-text-white">Total em Vendas</p>
+        <p class="title has-text-white">R$ {{ valor_total|floatformat:2 }}</p>
+        <p class="subtitle is-7 has-text-white">com base nas suas vendas</p>
+      </div>
+      <footer class="card-footer" style="background: transparent; border-top-color: rgba(255,255,255,0.25)">
+        <span class="card-footer-item has-text-white"><i class="fas fa-check-circle"></i></span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="column is-12-mobile is-4-tablet is-4-desktop">
+    <div class="card">
+      <div class="card-content">
+        <p class="heading">Vendas</p>
+        <p class="title">{{ total_vendas }}</p>
+        <p class="subtitle is-7">total de registros</p>
+      </div>
+      <footer class="card-footer">
+        <span class="card-footer-item"><i class="fas fa-list"></i></span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="column is-12-mobile is-4-tablet is-4-desktop">
+    <div class="card">
+      <div class="card-content">
+        <p class="heading">Ticket Médio</p>
+        <p class="title">R$ {{ ticket_medio|floatformat:2 }}</p>
+        <p class="subtitle is-7">média por venda</p>
+      </div>
+      <footer class="card-footer">
+        <span class="card-footer-item"><i class="fas fa-receipt"></i></span>
+      </footer>
+    </div>
+  </div>
+</div>
+<div class="box">
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <h2 class="title is-5">Vendas recentes</h2>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <span class="tag is-link is-light">Total: {{ vendas|length }}</span>
+      </div>
+    </div>
+  </div>
+
+  {% if vendas %}
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th class="has-text-right">Valor</th>
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Cupom</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in vendas %}
+            <tr>
+              <td>{{ v.data|date:"d/m/Y H:i" }}</td>
+              <td>{{ v.produto }}</td>
+              <td class="has-text-right">R$ {{ v.valor }}</td>
+              <td>{{ v.cliente|default:'—' }}</td>
+              <td>{{ v.vendedor|default:'—' }}</td>
+              <td>{{ v.cupom|default:'—' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="has-text-centered" style="padding: 2rem;">
+      <p class="title is-6">Nenhuma venda cadastrada ainda</p>
+      <p class="subtitle is-7">Quando você registrar vendas, elas aparecerão aqui.</p>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
