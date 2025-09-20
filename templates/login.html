@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+<div class="columns is-centered">
+  <div class="column is-5">
+    <h1 class="title has-text-centered">Login</h1>
+
+    {% if form.non_field_errors %}
+      <div class="notification is-danger">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="card">
+      <div class="card-content">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+
+          <div class="field">
+            <label class="label" for="id_email_or_phone">E-mail ou Telefone</label>
+            <div class="control">
+              <input
+                class="input{% if form.email_or_phone.errors %} is-danger{% endif %}"
+                type="text"
+                id="id_email_or_phone"
+                name="email_or_phone"
+                placeholder="seu@email.com ou (11) 99999-9999"
+                required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+            {% if form.email_or_phone.errors %}
+              <p class="help is-danger">
+                {% for error in form.email_or_phone.errors %}{{ error }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+              </p>
+            {% endif %}
+          </div>
+
+          <div class="field">
+            <label class="label" for="id_password">Senha</label>
+            <div class="control">
+              <input
+                class="input{% if form.password.errors %} is-danger{% endif %}"
+                type="password"
+                id="id_password"
+                name="password"
+                placeholder="••••••••"
+                required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </div>
+            {% if form.password.errors %}
+              <p class="help is-danger">
+                {% for error in form.password.errors %}{{ error }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+              </p>
+            {% endif %}
+          </div>
+
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <button class="button is-primary" type="submit">Entrar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

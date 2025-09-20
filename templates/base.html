@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Revendas{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dymI0H+5V0WJm9Uu0WbQn3yq8l1T4jH9u2k4tZc0w+uRkQ3XgX2eYg8E1o2y8qCVEGgWl5dXKQk+qN5YhZ+Ybg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  {% block navbar %}{% include 'partials/navbar.html' %}{% endblock %}
+  <section class="section">
+  <div class="container">
+    {% if messages %}
+      {% for m in messages %}
+        <div class="notification is-{{ m.tags }}">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+  </section>
+</body>
+</html>

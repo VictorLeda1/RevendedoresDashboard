@@ -1,0 +1,57 @@
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        Revendas
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/dashboard/">Dashboard</a>
+        {% if request.user and request.user.is_authenticated and request.user.is_superuser %}
+          <a class="navbar-item" href="/signup/">Cadastro</a>
+        {% endif %}
+      </div>
+
+      <div class="navbar-end">
+        {% if request.user and request.user.is_authenticated %}
+          <div class="navbar-item">
+            <span>Olá, {{ request.user.full_name|default:request.user.email|default:request.user.phone }}</span>
+          </div>
+          <div class="navbar-item">
+            <a class="button is-light" href="/logout/">
+              <span>Sair</span>
+            </a>
+          </div>
+        {% else %}
+          <div class="navbar-item">
+            <a class="button is-primary" href="/login/">
+              <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+              <span>Entrar</span>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const burgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    burgers.forEach(el => {
+      el.addEventListener('click', () => {
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+        el.classList.toggle('is-active');
+        if ($target) $target.classList.toggle('is-active');
+      });
+    });
+  });
+</script>

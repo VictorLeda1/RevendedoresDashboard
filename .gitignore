@@ -1,0 +1,60 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Django stuff
+*.log
+local_settings.py
+media/
+staticfiles/
+
+# SQLite database (uncomment to ignore if you don't want to commit it)
+# db.sqlite3
+# db.sqlite3-journal
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+.pybuilder/
+
+# MyPy / type checking
+.mypy_cache/
+.dmypy.json
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Packaging / build
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Node/npm (if present for tooling)
+node_modules/
+
+# Environments / secrets
+*.env
+*.env.*
+.envrc
+
+# Misc
+*.swp
+*.swo

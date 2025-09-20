@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="title">Olá, {{ user.full_name|default:user.email|default:user.phone }}</h1>
+<p>Bem-vindo ao painel do revendedor.</p>
+{% endblock %}
